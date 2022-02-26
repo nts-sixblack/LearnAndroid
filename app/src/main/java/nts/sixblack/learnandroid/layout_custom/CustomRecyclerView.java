@@ -5,7 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import nts.sixblack.learnandroid.R;
 import nts.sixblack.learnandroid.model.Employee;
@@ -32,8 +34,15 @@ public class CustomRecyclerView extends RecyclerView.Adapter<CustomRecyclerView.
 
     @Override
     public void onBindViewHolder(@NonNull EmployeeHolder holder, int position) {
-        holder.txtName.setText(list.get(position).getName().toString());
-        holder.txtAge.setText(String.valueOf(list.get(position).getAge()));
+        Employee employee = list.get(position);
+        holder.txtName.setText(employee.getName().toString());
+        holder.txtAge.setText(String.valueOf(employee.getAge()));
+        holder.layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                click(employee);
+            }
+        });
     }
 
     @Override
@@ -42,12 +51,18 @@ public class CustomRecyclerView extends RecyclerView.Adapter<CustomRecyclerView.
     }
 
     public static class EmployeeHolder extends RecyclerView.ViewHolder {
+        public ConstraintLayout layout;
         public TextView txtName;
         public TextView txtAge;
         public EmployeeHolder(@NonNull View itemView) {
             super(itemView);
+            layout = itemView.findViewById(R.id.layoutItemRecyclerView);
             txtName = itemView.findViewById(R.id.txtRecyclerViewName);
             txtAge = itemView.findViewById(R.id.txtRecyclerViewAge);
         }
+    }
+
+    public void click(Employee employee){
+        Toast.makeText(context, employee.getName()+" "+employee.getAge(),Toast.LENGTH_SHORT).show();
     }
 }
