@@ -41,6 +41,9 @@ public class MainActivity extends AppCompatActivity {
             case "RecyclerView":
                 intent = new Intent(MainActivity.this, RecyclerViewActivity.class);
                 break;
+            case "Retrofit":
+                intent = new Intent(MainActivity.this, RetrofitTestActivity.class);
+                break;
 
         }
 
