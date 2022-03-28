@@ -44,7 +44,9 @@ public class MainActivity extends AppCompatActivity {
             case "Retrofit":
                 intent = new Intent(MainActivity.this, RetrofitTestActivity.class);
                 break;
-
+            case "Login":
+                intent = new Intent(MainActivity.this, LoginActivity.class);
+                break;
         }
 
         MainActivity.this.startActivity(intent);

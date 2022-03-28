@@ -3,10 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Android Project/LearnAndroid/app/src/main/res/layout/activity_login.xml" value="0.22826086956521738" />
         <entry key="..\:/Android Project/LearnAndroid/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
         <entry key="..\:/Android Project/LearnAndroid/app/src/main/res/layout/activity_recycler_view.xml" value="0.22826086956521738" />
         <entry key="..\:/Android Project/LearnAndroid/app/src/main/res/layout/activity_retrofit.xml" value="0.22826086956521738" />
         <entry key="..\:/Android Project/LearnAndroid/app/src/main/res/layout/activity_retrofit_test.xml" value="0.22826086956521738" />
+        <entry key="..\:/Android Project/LearnAndroid/app/src/main/res/layout/activity_upload_image.xml" value="0.22826086956521738" />
         <entry key="..\:/Android Project/LearnAndroid/app/src/main/res/layout/layout_item_user.xml" value="0.22826086956521738" />
         <entry key="..\:/Android Project/LearnAndroid/app/src/main/res/layout/layout_recycler_view.xml" value="0.22826086956521738" />
       </map>
