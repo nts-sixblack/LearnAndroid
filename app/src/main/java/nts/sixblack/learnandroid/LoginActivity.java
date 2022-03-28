@@ -1,6 +1,8 @@
 package nts.sixblack.learnandroid;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,6 +28,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button btnLogin;
     private Gson gson;
     private String token = TokenResponse.accessToken;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,8 @@ public class LoginActivity extends AppCompatActivity {
         edtUsername = (EditText) findViewById(R.id.edtUsernameLoginActivity);
         edtPassword = (EditText) findViewById(R.id.edtPasswordLoginActivity);
         btnLogin = (Button) findViewById(R.id.btnLogin);
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Logging ...");
 
         gson = new Gson();
 
@@ -57,15 +62,17 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void login(LoginForm loginForm){
-
+        progressDialog.show();
         Call<ResponObject> call = RetrofitClient.getInstance().getMyAPI().login(loginForm);
         call.enqueue(new Callback<ResponObject>() {
             @Override
             public void onResponse(Call<ResponObject> call, Response<ResponObject> response) {
                 ResponObject responObject = response.body();
                 if (responObject==null){
+                    progressDialog.dismiss();
                     Toast.makeText(getApplicationContext(), "Đăng nhập thất bại", Toast.LENGTH_SHORT).show();
                 } else {
+                    progressDialog.dismiss();
 
                     JsonObject jsonObject = gson.toJsonTree(responObject.getData()).getAsJsonObject();
 
@@ -76,9 +83,7 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(intent);
 
                     Toast.makeText(getApplicationContext(), "login success", Toast.LENGTH_SHORT).show();
-
-                    System.out.println(TokenResponse.accessToken);
-
+                    Log.e("Token","Bearer "+TokenResponse.accessToken);
                 }
             }
 
