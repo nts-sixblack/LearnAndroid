@@ -8,4 +8,5 @@ public class TokenResponse {
     public static String accessToken;
     public static String username;
     public static String password;
+    public static String userId;
 }

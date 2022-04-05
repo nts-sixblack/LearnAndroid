@@ -30,10 +30,15 @@ public interface API {
     @GET("posts/{postsId}/")
     Call<ResponObject> findPosts(@Header("Authorization") String token,@Path("postsId") String postsId);
 
+    @GET("posts/listPosts/{userId}")
+    Call<ResponObject> listsPostsOfUser(@Header("Authorization") String token, @Path("userId") int userId);
+
     @Multipart
     @POST("posts/uploadFile/")
     Call<ResponObject> newPosts(@Header("Authorization") String token,
                                 @Part(PostsForm.KEY_CAPTION) RequestBody caption,
                                 @Part MultipartBody.Part image,
                                 @Part(PostsForm.KEY_USER_ID) RequestBody userId);
+
+
 }

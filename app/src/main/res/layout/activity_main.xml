@@ -64,6 +64,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:id="@+id/button11" android:textAllCaps="false"
                     android:textSize="20sp" android:onClick="clickButton"/>
+            <Button
+                    android:text="ListPosts"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/button12" android:textSize="20sp"
+                    android:textAllCaps="false" android:onClick="clickButton"/>
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

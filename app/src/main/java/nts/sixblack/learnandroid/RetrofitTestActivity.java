@@ -1,5 +1,6 @@
 package nts.sixblack.learnandroid;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
@@ -29,7 +30,7 @@ public class RetrofitTestActivity extends AppCompatActivity {
     private EditText edtPhone;
     private EditText edtPassword;
     private Button btnRegister;
-
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,8 @@ public class RetrofitTestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_retrofit_test);
         edtFindName = (EditText) findViewById(R.id.edtFindName);
         btnFind = (Button) findViewById(R.id.btnFindRetrofit);
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("registing...");
         btnFind.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,6 +60,8 @@ public class RetrofitTestActivity extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressDialog.setMessage("registing...");
+                progressDialog.show();
                 String firstName = edtFirstName.getText().toString();
                 String lastName = edtLastName.getText().toString();
                 String email = edtEmail.getText().toString();
@@ -77,6 +82,7 @@ public class RetrofitTestActivity extends AppCompatActivity {
                     call.enqueue(new Callback<ResponObject>() {
                         @Override
                         public void onResponse(Call<ResponObject> call, Response<ResponObject> response) {
+                            progressDialog.dismiss();
                             ResponObject responObject = response.body();
                             if (responObject.getMessage().equals("Đăng nhập thành công")){
                                 Toast.makeText(getApplicationContext(), "Đăng ký thành công", Toast.LENGTH_LONG).show();
@@ -88,6 +94,7 @@ public class RetrofitTestActivity extends AppCompatActivity {
 
                         @Override
                         public void onFailure(Call<ResponObject> call, Throwable t) {
+                            progressDialog.dismiss();
                             Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_LONG).show();
                         }
                     });
@@ -100,6 +107,8 @@ public class RetrofitTestActivity extends AppCompatActivity {
     }
 
     private void show(String name){
+        progressDialog.setMessage("loading...");
+        progressDialog.show();
         Call<ResponObject> call = RetrofitClient.getInstance().getMyAPI().listUserByName(name);
         Gson gson = new Gson();
         call.enqueue(new Callback<ResponObject>() {
@@ -132,11 +141,13 @@ public class RetrofitTestActivity extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("responObject", responObject);
                 intent.putExtras(bundle);
+                progressDialog.dismiss();
                 RetrofitTestActivity.this.startActivity(intent);
             }
 
             @Override
             public void onFailure(Call<ResponObject> call, Throwable t) {
+                progressDialog.dismiss();
                 Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_SHORT).show();
             }
         });

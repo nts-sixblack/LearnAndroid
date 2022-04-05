@@ -41,8 +41,9 @@ public class UploadImageActivity extends AppCompatActivity {
 
     private static final int MY_REQUEST_CODE = 10;
     private Button btnFindPosts, btnNewPosts, btnSelectImage;
-    private EditText edtUserId, edtCaption;
+    private EditText edtCaption;
     private String token = "Bearer "+ TokenResponse.accessToken;
+    private String userId = TokenResponse.userId;
     private ImageView imgChoose;
     private Uri mUri;
     private ProgressDialog progressDialog;
@@ -79,7 +80,6 @@ public class UploadImageActivity extends AppCompatActivity {
         btnNewPosts = (Button) findViewById(R.id.btnNewPosts);
         btnSelectImage = (Button) findViewById(R.id.btnChooseImage);
         imgChoose = (ImageView) findViewById(R.id.imgChoose);
-        edtUserId = (EditText) findViewById(R.id.edtUserId);
         edtCaption = (EditText) findViewById(R.id.edtCaption);
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Waiting");
@@ -155,14 +155,13 @@ public class UploadImageActivity extends AppCompatActivity {
         if (mUri != null){
             progressDialog.show();
 
-            String userId = edtUserId.getText().toString().trim();
+            String userId = TokenResponse.userId;
             String caption = edtCaption.getText().toString().trim();
 
             RequestBody requestBodyUserId  = RequestBody.create(MediaType.parse("multipart/form-data"), userId);
             RequestBody requestBodyCaption  = RequestBody.create(MediaType.parse("multipart/form-data"), caption);
 
             String strPath = RealPathUltil.getRealPath(this, mUri);
-            Log.e("Path", strPath);
 
             File file = new File(strPath);
             RequestBody requestBodyImage = RequestBody.create(MediaType.parse("multipart/form-data"), file);
@@ -176,6 +175,11 @@ public class UploadImageActivity extends AppCompatActivity {
                 public void onResponse(Call<ResponObject> call, Response<ResponObject> response) {
                     progressDialog.dismiss();
                     Toast.makeText(getApplicationContext(), "New Posts Success", Toast.LENGTH_LONG).show();
+
+                    clear();
+
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intent);
                 }
 
                 @Override
@@ -187,6 +191,13 @@ public class UploadImageActivity extends AppCompatActivity {
             });
         }
     }
+
+    private void clear(){
+        edtCaption.setText("");
+        imgChoose.setImageBitmap(null);
+    }
+
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

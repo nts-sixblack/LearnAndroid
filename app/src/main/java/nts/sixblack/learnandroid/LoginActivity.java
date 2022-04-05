@@ -28,12 +28,18 @@ public class LoginActivity extends AppCompatActivity {
     private Button btnLogin;
     private Gson gson;
     private String token = TokenResponse.accessToken;
+    private String userId = TokenResponse.userId;
     private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        if (userId != null){
+            Intent intent = new Intent(this, UploadImageActivity.class);
+            startActivity(intent);
+        }
 
         edtUsername = (EditText) findViewById(R.id.edtUsernameLoginActivity);
         edtPassword = (EditText) findViewById(R.id.edtPasswordLoginActivity);
@@ -42,8 +48,6 @@ public class LoginActivity extends AppCompatActivity {
         progressDialog.setMessage("Logging ...");
 
         gson = new Gson();
-
-        System.out.println(TokenResponse.accessToken);
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,12 +82,15 @@ public class LoginActivity extends AppCompatActivity {
 
                     TokenResponse.accessToken = jsonObject.get("token").getAsString();
                     TokenResponse.username = jsonObject.get("email").getAsString();
+                    Long userId = jsonObject.get("userId").getAsLong();
+                    TokenResponse.userId = String.valueOf(userId);
 
                     Intent intent = new Intent(getApplicationContext(), UploadImageActivity.class);
                     startActivity(intent);
 
                     Toast.makeText(getApplicationContext(), "login success", Toast.LENGTH_SHORT).show();
                     Log.e("Token","Bearer "+TokenResponse.accessToken);
+                    Log.e("UserId", TokenResponse.userId);
                 }
             }
 
