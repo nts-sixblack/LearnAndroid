@@ -40,12 +40,12 @@ public class CustomListPosts extends RecyclerView.Adapter<CustomListPosts.PostsH
     @Override
     public void onBindViewHolder(@NonNull CustomListPosts.PostsHolder holder, int position) {
         Posts posts = list.get(position);
-        holder.user.setText(posts.getPostsUser().toString());
+        holder.user.setText(posts.getPostsUserList().get(0).getName().toString());
         holder.caption.setText(posts.getCaption().toString());
 
         ImageView imageView = holder.imageView;
         Glide.with(context)
-                .load(posts.getPostsImage())
+                .load(posts.getPostsImageList().get(0).getImage())
                 .into(imageView);
     }
 

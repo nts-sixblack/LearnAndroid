@@ -53,7 +53,7 @@ public class ListPostsActivity extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        apiService.getListPost(adapter, list, userId);
+        apiService.myLisPosts(adapter, list);
     }
 
 }

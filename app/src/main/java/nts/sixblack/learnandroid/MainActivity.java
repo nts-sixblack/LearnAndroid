@@ -7,7 +7,9 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import com.google.gson.Gson;
+import nts.sixblack.learnandroid.form.CommentForm;
 import nts.sixblack.learnandroid.model.Posts;
+import nts.sixblack.learnandroid.service.ApiService;
 
 import java.util.List;
 
@@ -18,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     private Gson gson;
     private ProgressDialog progressDialog;
     private List<Posts> list;
+    private ApiService apiService = new ApiService();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +64,51 @@ public class MainActivity extends AppCompatActivity {
             case "ListPosts":
                 intent = new Intent(MainActivity.this, ListPostsActivity.class);
                 break;
+            case "Song":
+                intent = new Intent(MainActivity.this, NewSongActivity.class);
+                break;
+            case "FeelPosts":
+                apiService.feelPosts(1);
+                intent = new Intent(MainActivity.this, NewSongActivity.class);
+                break;
+            case "CommentPosts":
+                CommentForm commentForm = new CommentForm("comment", 2);
+                apiService.commentPosts(commentForm);
+                intent = new Intent(MainActivity.this, NewSongActivity.class);
+                break;
+            case "FindPostsById":
+                apiService.findPostsById(1);
+                intent = new Intent(MainActivity.this, NewSongActivity.class);
+                break;
+            case "NewPosts":
+                intent = new Intent(getApplicationContext(), UploadImageActivity.class);
+                break;
+            case "ListCommentOfPosts":
+                apiService.listCommentOfPosts(2);
+                intent = new Intent(MainActivity.this, NewSongActivity.class);
+                break;
+            case "Follow":
+                apiService.follow(1);
+                intent = new Intent(MainActivity.this, MainActivity.class);
+                break;
+            case "ListRequest":
+                apiService.listRequest();
+                intent = new Intent(MainActivity.this, NewSongActivity.class);
+                break;
+            case "ChangeFollowStatus":
+                apiService.changeFollowStatus();
+                intent = new Intent(MainActivity.this, MainActivity.class);
+                break;
+            case "ListFollower":
+                apiService.listFollower();
+                intent = new Intent(MainActivity.this, NewSongActivity.class);
+                break;
+            case "ListFollowing":
+                apiService.listFollowing();
+                intent = new Intent(MainActivity.this, NewSongActivity.class);
+                break;
+
+
         }
 
         MainActivity.this.startActivity(intent);

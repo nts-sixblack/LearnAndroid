@@ -16,6 +16,9 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.LearnAndroid">
         <activity
+                android:name=".NewSongActivity"
+                android:exported="true"/>
+        <activity
                 android:name=".ListPostsActivity"
                 android:exported="true"/>
         <activity

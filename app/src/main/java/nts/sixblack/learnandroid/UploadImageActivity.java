@@ -27,6 +27,7 @@ import nts.sixblack.learnandroid.api.RetrofitClient;
 import nts.sixblack.learnandroid.api.TokenResponse;
 import nts.sixblack.learnandroid.form.PostsForm;
 import nts.sixblack.learnandroid.model.ResponObject;
+import nts.sixblack.learnandroid.service.ApiService;
 import nts.sixblack.learnandroid.ultil.RealPathUltil;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -84,12 +85,12 @@ public class UploadImageActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Waiting");
 
-        btnFindPosts.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                find();
-            }
-        });
+//        btnFindPosts.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                find();
+//            }
+//        });
 
         btnNewPosts.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,29 +108,29 @@ public class UploadImageActivity extends AppCompatActivity {
 
     }
 
-    private void find(){
-        Call<ResponObject> call = RetrofitClient.getInstance().getMyAPI().findPosts( token,"4");
-        call.enqueue(new Callback<ResponObject>() {
-            @Override
-            public void onResponse(Call<ResponObject> call, Response<ResponObject> response) {
-                ResponObject responObject = response.body();
-                if (responObject==null){
-                    Toast.makeText(getApplicationContext(), "Fail call", Toast.LENGTH_LONG).show();
-
-                } else {
-                    System.out.println(responObject.getMessage());
-
-                    Toast.makeText(getApplicationContext(), "success", Toast.LENGTH_LONG).show();
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<ResponObject> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_LONG).show();
-            }
-        });
-    }
+//    private void find(){
+//        Call<ResponObject> call = RetrofitClient.getInstance().getMyAPI().findPosts( token,"4");
+//        call.enqueue(new Callback<ResponObject>() {
+//            @Override
+//            public void onResponse(Call<ResponObject> call, Response<ResponObject> response) {
+//                ResponObject responObject = response.body();
+//                if (responObject==null){
+//                    Toast.makeText(getApplicationContext(), "Fail call", Toast.LENGTH_LONG).show();
+//
+//                } else {
+//                    System.out.println(responObject.getMessage());
+//
+//                    Toast.makeText(getApplicationContext(), "success", Toast.LENGTH_LONG).show();
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ResponObject> call, Throwable t) {
+//                Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_LONG).show();
+//            }
+//        });
+//    }
 
     private void selectImage(){
         if (Build.VERSION.SDK_INT<Build.VERSION_CODES.M){
@@ -153,7 +154,6 @@ public class UploadImageActivity extends AppCompatActivity {
 
     private void upload(){
         if (mUri != null){
-            progressDialog.show();
 
             String userId = TokenResponse.userId;
             String caption = edtCaption.getText().toString().trim();
@@ -169,26 +169,9 @@ public class UploadImageActivity extends AppCompatActivity {
             MultipartBody.Part multiPartImage = MultipartBody.Part.createFormData(PostsForm.KEY_IMAGE, file.getName(), requestBodyImage);
 //            MultipartBody.Part multiPartImage = MultipartBody.Part.create(requestBodyImage);
 
-            Call<ResponObject> call = RetrofitClient.getInstance().getMyAPI().newPosts(token, requestBodyCaption, multiPartImage, requestBodyUserId);
-            call.enqueue(new Callback<ResponObject>() {
-                @Override
-                public void onResponse(Call<ResponObject> call, Response<ResponObject> response) {
-                    progressDialog.dismiss();
-                    Toast.makeText(getApplicationContext(), "New Posts Success", Toast.LENGTH_LONG).show();
+            ApiService apiService = new ApiService();
+            apiService.newPosts(requestBodyCaption, multiPartImage);
 
-                    clear();
-
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    startActivity(intent);
-                }
-
-                @Override
-                public void onFailure(Call<ResponObject> call, Throwable t) {
-                    progressDialog.dismiss();
-                    Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_LONG).show();
-                    Log.e("error", t.getMessage());
-                }
-            });
         }
     }
 

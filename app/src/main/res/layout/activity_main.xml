@@ -60,15 +60,70 @@
                     android:layout_height="wrap_content" android:id="@+id/button10"
                     android:textSize="20sp" android:onClick="clickButton" android:textAllCaps="false"/>
             <Button
+                    android:text="Song"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/button13" android:textAllCaps="false"
+                    android:textSize="20sp" android:onClick="clickButton"/>
+            <Button
                     android:text="Login"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:id="@+id/button11" android:textAllCaps="false"
+                    android:textSize="20sp" android:onClick="clickButton"/>
+            <Button
+                    android:text="FeelPosts"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/button16" android:textAllCaps="false"
+                    android:textSize="20sp" android:onClick="clickButton"/>
+            <Button
+                    android:text="CommentPosts"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/button15" android:textSize="20sp"
+                    android:onClick="clickButton" android:textAllCaps="false"/>
+            <Button
+                    android:text="FindPostsById"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/button14" android:onClick="clickButton"
+                    android:textAllCaps="false" android:textSize="20sp"/>
+            <Button
+                    android:text="NewPosts"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/button17" android:textAllCaps="false"
                     android:textSize="20sp" android:onClick="clickButton"/>
             <Button
                     android:text="ListPosts"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:id="@+id/button12" android:textSize="20sp"
                     android:textAllCaps="false" android:onClick="clickButton"/>
+            <Button
+                    android:text="ListCommentOfPosts"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/button19" android:textAllCaps="false"
+                    android:textSize="20sp" android:onClick="clickButton"/>
+            <Button
+                    android:text="Follow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/button20" android:textAllCaps="false"
+                    android:textSize="20sp" android:onClick="clickButton"/>
+            <Button
+                    android:text="ListRequest"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/button21" android:textAllCaps="false"
+                    android:textSize="20sp" android:onClick="clickButton"/>
+            <Button
+                    android:text="ChangeFollowStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/button23" android:textAllCaps="false"
+                    android:textSize="20sp" android:onClick="clickButton"/>
+            <Button
+                    android:text="ListFollower"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/button24" android:textAllCaps="false"
+                    android:textSize="20sp" android:onClick="clickButton"/>
+            <Button
+                    android:text="ListFollowing"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/button25" android:textAllCaps="false"
+                    android:textSize="20sp" android:onClick="clickButton"/>
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

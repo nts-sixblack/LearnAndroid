@@ -16,6 +16,7 @@ import nts.sixblack.learnandroid.api.TokenResponse;
 import nts.sixblack.learnandroid.form.LoginForm;
 import nts.sixblack.learnandroid.model.ResponObject;
 import nts.sixblack.learnandroid.model.User;
+import nts.sixblack.learnandroid.service.ApiService;
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -30,6 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     private String token = TokenResponse.accessToken;
     private String userId = TokenResponse.userId;
     private ProgressDialog progressDialog;
+    private ApiService apiService = new ApiService();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +69,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void login(LoginForm loginForm){
         progressDialog.show();
+        Log.e("message","call");
         Call<ResponObject> call = RetrofitClient.getInstance().getMyAPI().login(loginForm);
         call.enqueue(new Callback<ResponObject>() {
             @Override
@@ -85,7 +88,7 @@ public class LoginActivity extends AppCompatActivity {
                     Long userId = jsonObject.get("userId").getAsLong();
                     TokenResponse.userId = String.valueOf(userId);
 
-                    Intent intent = new Intent(getApplicationContext(), UploadImageActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(intent);
 
                     Toast.makeText(getApplicationContext(), "login success", Toast.LENGTH_SHORT).show();
